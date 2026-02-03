@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -93,11 +93,8 @@
     }
 
     .actions {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 20px;
-        height: 52px;
+        position: static;
+        height: 0;
     }
 
     button {
@@ -137,6 +134,9 @@
         left: 50%;
         transform: translateX(10%);
         bottom: 0;
+        transition: left 700ms ease, top 700ms ease;
+        width: 96px;
+        height: 44px;
     }
 
     #noBtn:hover {
@@ -163,6 +163,139 @@
         pointer-events: none;
     }
 
+    .heart.full {
+        position: fixed;
+        bottom: -24px;
+        z-index: 5;
+    }
+
+    .love-message {
+        margin-top: 18px;
+        font-size: 18px;
+        color: rgba(44, 27, 36, 0.85);
+    }
+
+    .dinner-scene {
+        display: none;
+        position: relative;
+        width: 260px;
+        height: 140px;
+        margin: 18px auto 0;
+        filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.12));
+    }
+
+    .dinner-scene.show {
+        display: block;
+        animation: popIn 600ms ease-out both;
+    }
+
+    .table {
+        position: absolute;
+        left: 50%;
+        bottom: 16px;
+        transform: translateX(-50%);
+        width: 230px;
+        height: 18px;
+        background: linear-gradient(135deg, #c78a4a, #e3b175);
+        border-radius: 10px;
+    }
+
+    .table::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 12px;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        background: #b0703a;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .plate {
+        position: absolute;
+        width: 36px;
+        height: 12px;
+        border-radius: 999px;
+        background: #fff;
+        border: 2px solid #f1c995;
+        top: -10px;
+    }
+
+    .plate.left { left: 40px; }
+    .plate.right { right: 40px; }
+
+    .candle {
+        position: absolute;
+        left: 50%;
+        top: -46px;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 30px;
+        background: #ffd8a6;
+        border-radius: 6px;
+        box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .flame {
+        position: absolute;
+        left: 50%;
+        top: -12px;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 14px;
+        background: radial-gradient(circle at 50% 40%, #fff7cf, #ff9f1c);
+        border-radius: 50% 50% 50% 50%;
+        animation: flicker 1.2s ease-in-out infinite;
+    }
+
+    .wine {
+        position: absolute;
+        width: 12px;
+        height: 18px;
+        border-radius: 6px 6px 10px 10px;
+        background: #ff6b8a;
+        top: -24px;
+    }
+
+    .wine.left { left: 84px; }
+    .wine.right { right: 84px; }
+
+    .diner {
+        position: absolute;
+        bottom: 44px;
+        font-size: 38px;
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.15));
+        animation: dinerFloat 3.6s ease-in-out infinite;
+    }
+
+    .diner.male { left: 10px; }
+    .diner.female { right: 10px; animation-delay: 0.6s; }
+
+    .diner span {
+        display: block;
+        font-size: 12px;
+        color: rgba(44, 27, 36, 0.7);
+        margin-top: 4px;
+    }
+
+    .curious-teddy {
+        position: absolute;
+        right: 16px;
+        bottom: 18px;
+        font-size: 34px;
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.15));
+        animation: curiousPeek 2.8s ease-in-out infinite;
+    }
+
+    .curious-teddy span {
+        display: block;
+        font-size: 12px;
+        color: rgba(44, 27, 36, 0.7);
+        margin-top: 2px;
+        letter-spacing: 0.2px;
+    }
+
     .ribbon {
         position: absolute;
         top: 18px;
@@ -175,6 +308,7 @@
         letter-spacing: 0.5px;
         box-shadow: 0 10px 20px rgba(255, 107, 138, 0.35);
     }
+
 
     @keyframes floatUp {
         from {
@@ -198,6 +332,25 @@
         100% { transform: translateY(0) scale(1); opacity: 1; }
     }
 
+    @keyframes heartPop {
+        0%, 100% { transform: scale(0.9); opacity: 0.8; }
+        50% { transform: scale(1.2); opacity: 1; }
+    }
+    @keyframes flicker {
+        0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+        50% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+    }
+
+    @keyframes dinerFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+    }
+
+    @keyframes curiousPeek {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-4px) rotate(-2deg); }
+    }
+
     @media (max-width: 480px) {
         .container {
             padding: 28px 22px 76px;
@@ -205,6 +358,10 @@
 
         h1 {
             font-size: 26px;
+        }
+
+        .dinner-scene {
+            transform: scale(0.92);
         }
     }
 </style>
@@ -224,6 +381,22 @@
         <button id="noBtn">No 💔</button>
     </div>
 
+    <div class="dinner-scene" id="dinnerScene" aria-hidden="true">
+        <div class="diner male">🧸<span>Her's</span></div>
+        <div class="diner female">🐰<span>His</span></div>
+        <div class="table">
+            <div class="plate left"></div>
+            <div class="plate right"></div>
+            <div class="wine left"></div>
+            <div class="wine right"></div>
+            <div class="candle">
+                <div class="flame"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="curious-teddy" aria-hidden="true">🧸<span>Deeepu💕</span></div>
+
     <div class="success" id="successMsg"></div>
 </div>
 
@@ -241,6 +414,7 @@
     const box = document.getElementById("box");
     const successMsg = document.getElementById("successMsg");
     const questionText = document.getElementById("questionText");
+    const dinnerScene = document.getElementById("dinnerScene");
 
     questionText.innerText = `Will you be my Valentine, ${PERSON_NAME}? 💘`;
 
@@ -248,27 +422,34 @@
         const boxRect = box.getBoundingClientRect();
         const btnRect = noBtn.getBoundingClientRect();
 
-        const maxX = boxRect.width - btnRect.width;
-        const maxY = boxRect.height - btnRect.height - 40;
+        const padding = 12;
+        const maxX = boxRect.width - btnRect.width - padding;
+        const maxY = boxRect.height - btnRect.height - padding;
 
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        const x = Math.random() * maxX + padding / 2;
+        const y = Math.random() * maxY + padding / 2;
 
         noBtn.style.left = x + "px";
         noBtn.style.top = y + "px";
     }
 
-    noBtn.addEventListener("mouseover", moveNoButton);
-    noBtn.addEventListener("touchstart", moveNoButton);
+    noBtn.setAttribute("aria-disabled", "true");
 
-    function createHeart() {
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+    noBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        moveNoButton();
+    });
+
+    function createHeart(target, fullPage = false) {
         const heart = document.createElement("div");
-        heart.className = "heart";
+        heart.className = fullPage ? "heart full" : "heart";
         heart.innerText = "❤️";
         heart.style.left = Math.random() * 100 + "%";
         heart.style.fontSize = (16 + Math.random() * 20) + "px";
 
-        box.appendChild(heart);
+        target.appendChild(heart);
 
         setTimeout(() => {
             heart.remove();
@@ -278,15 +459,21 @@
     yesBtn.addEventListener("click", () => {
         yesBtn.style.display = "none";
         noBtn.style.display = "none";
+        dinnerScene.classList.add("show");
 
         successMsg.innerHTML = `
-            Yay ${PERSON_NAME}! 💕🥂<br>
-            ${SUCCESS_MESSAGE}
+            Yay ${PERSON_NAME}! 💕<br>
+            ${SUCCESS_MESSAGE}<br>
+            <span class="love-message">You just turned today into a little celebration of us.</span><br>
+            <span class="love-message">💕 Your's Deeepu💕</span>
         `;
-        successMsg.style.display = "block";
 
         // Start heart rain
-        setInterval(createHeart, 300);
+        const fullHeartBurst = setInterval(() => createHeart(document.body, true), 90);
+        setTimeout(() => {
+            clearInterval(fullHeartBurst);
+            successMsg.style.display = "block";
+        }, 2000);
     });
 </script>
 
